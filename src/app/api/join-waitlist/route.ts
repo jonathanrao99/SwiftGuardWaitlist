@@ -2,55 +2,88 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json();
+    const body = await request.json();
+    const { email, feedback_rating, feedback_text, feedback_category } = body;
 
-    if (!email) {
+    console.log("Received data:", { email, feedback_rating, feedback_text, feedback_category });
+
+    // Validate email
+    if (!email || typeof email !== "string") {
+      console.log("Email validation failed:", { email, type: typeof email });
       return NextResponse.json(
         { error: "Email is required" },
         { status: 400 }
       );
     }
 
-    // Send welcome email using Resend
-    const response = await fetch("https://api.resend.com/emails", {
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      console.log("Invalid email format:", email);
+      return NextResponse.json(
+        { error: "Invalid email format" },
+        { status: 400 }
+      );
+    }
+
+    // Prepare the data to insert
+    const waitlistData = {
+      email: email.toLowerCase().trim(),
+      ...(feedback_rating && { feedback_rating }),
+      ...(feedback_text && { feedback_text }),
+      ...(feedback_category && { feedback_category }),
+    };
+
+    console.log("Prepared waitlist data:", waitlistData);
+
+    // Try to insert the data
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/waitlist`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
         "Content-Type": "application/json",
+        "apikey": process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        "Authorization": `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+        "Prefer": "return=minimal"
       },
-      body: JSON.stringify({
-        from: "SwiftGuard <noreply@yourdomain.com>",
-        to: [email],
-        subject: "Welcome to SwiftGuard Waitlist! 🛡️",
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h1 style="color: #2563eb;">Welcome to SwiftGuard!</h1>
-            <p>Thank you for joining our waitlist for the next generation of security.</p>
-            <p>You'll be among the first to know when SwiftGuard launches with:</p>
-            <ul>
-              <li>Advanced scam protection</li>
-              <li>Premium VPN service</li>
-              <li>Real-time threat detection</li>
-              <li>Cross-platform security</li>
-            </ul>
-            <p>We'll notify you as soon as SwiftGuard is ready!</p>
-            <p>Best regards,<br>The SwiftGuard Team</p>
-          </div>
-        `,
-      }),
+      body: JSON.stringify(waitlistData)
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Resend API error:", errorData);
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch {
+        errorData = { message: "No error details available" };
+      }
+      
+      console.error("Supabase error:", errorData);
+      console.error("Response status:", response.status);
+      console.error("Response headers:", Object.fromEntries(response.headers.entries()));
+      
+      // Handle duplicate email error
+      if (response.status === 409) {
+        // If this is just an email submission (no feedback), that's fine
+        if (!feedback_rating && !feedback_text && !feedback_category) {
+          return NextResponse.json(
+            { success: true, message: "Email already registered" },
+            { status: 200 }
+          );
+        }
+        // If this has feedback data, we need to handle it differently
+        return NextResponse.json(
+          { error: "Email already registered, cannot update with feedback" },
+          { status: 409 }
+        );
+      }
+      
       return NextResponse.json(
-        { error: "Failed to join waitlist" },
-        { status: 500 }
+        { error: "Failed to join waitlist", details: errorData },
+        { status: response.status }
       );
     }
 
     return NextResponse.json(
-      { message: "Successfully joined waitlist" },
+      { success: true, message: "Successfully joined the waitlist!" },
       { status: 200 }
     );
 

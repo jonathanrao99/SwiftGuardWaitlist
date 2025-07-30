@@ -10,8 +10,10 @@ import { useState } from "react";
 
 export function Hero() {
   const [email, setEmail] = useState("");
+  const [submittedEmail, setSubmittedEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [feedbackStatus, setFeedbackStatus] = useState<"idle" | "success" | "error">("idle");
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -19,31 +21,108 @@ export function Hero() {
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
-    // Show feedback modal immediately
-    setShowFeedbackModal(true);
-    setIsSubmitting(false);
-    
-    // For now, just show success message
-    setSubmitStatus("success");
-    setEmail("");
-    setTimeout(() => setSubmitStatus("idle"), 3000);
-  };
-
-  const handleFeedbackSubmit = async (feedbackData: any) => {
     try {
-      // Send feedback data to your API
-      const response = await fetch("/api/feedback", {
+      // First, submit the email to the waitlist
+      const response = await fetch("/api/join-waitlist", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(feedbackData),
+        body: JSON.stringify({ email }),
       });
 
       if (response.ok) {
-        console.log("Feedback submitted successfully");
+        setSubmitStatus("success");
+        setSubmittedEmail(email); // Store the email for feedback
+        setEmail("");
+        // Show feedback modal after successful email submission
+        setShowFeedbackModal(true);
       } else {
-        console.error("Failed to submit feedback");
+        const errorData = await response.json();
+        setSubmitStatus("error");
+        console.error("Failed to join waitlist:", errorData);
+      }
+    } catch (error) {
+      setSubmitStatus("error");
+      console.error("Error joining waitlist:", error);
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus("idle"), 3000);
+    }
+  };
+
+  const handleFeedbackSubmit = async (feedbackData: {
+    email: string;
+    role: string | null;
+    businessChallenge?: string;
+    businessElaboration?: string;
+    guardChallenge?: string;
+    guardElaboration?: string;
+    guardAgencies?: string;
+    city?: string;
+    agency?: string;
+    eventType?: string;
+    securityType?: string;
+  }) => {
+    try {
+      console.log("Submitting feedback for:", feedbackData.email);
+      console.log("Stored submittedEmail:", submittedEmail);
+      
+      // Prepare feedback data for the API
+      const feedbackPayload = {
+        email: submittedEmail, // Use the stored email
+        feedback_rating: 5, // Default rating since we don't have a rating field in the modal
+        feedback_text: JSON.stringify({
+          role: feedbackData.role,
+          businessChallenge: feedbackData.businessChallenge,
+          businessElaboration: feedbackData.businessElaboration,
+          guardChallenge: feedbackData.guardChallenge,
+          guardElaboration: feedbackData.guardElaboration,
+          guardAgencies: feedbackData.guardAgencies,
+          city: feedbackData.city,
+          agency: feedbackData.agency,
+          eventType: feedbackData.eventType,
+          securityType: feedbackData.securityType,
+        }),
+        feedback_category: feedbackData.role || "general"
+      };
+
+      console.log("Feedback payload:", feedbackPayload);
+
+      // Update the waitlist entry with feedback data
+      const response = await fetch("/api/update-feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(feedbackPayload),
+      });
+
+      console.log("Feedback response status:", response.status);
+      console.log("Response headers:", Object.fromEntries(response.headers.entries()));
+
+      if (response.ok) {
+        try {
+          const result = await response.json();
+          console.log("Feedback submitted successfully:", result);
+          setFeedbackStatus("success");
+          setTimeout(() => setFeedbackStatus("idle"), 3000);
+        } catch {
+          console.log("Feedback submitted successfully (no response body)");
+          setFeedbackStatus("success");
+          setTimeout(() => setFeedbackStatus("idle"), 3000);
+        }
+      } else {
+        try {
+          const errorData = await response.json();
+          console.error("Failed to submit feedback:", errorData);
+          setFeedbackStatus("error");
+          setTimeout(() => setFeedbackStatus("idle"), 3000);
+        } catch {
+          console.error("Failed to submit feedback: HTTP", response.status);
+          setFeedbackStatus("error");
+          setTimeout(() => setFeedbackStatus("idle"), 3000);
+        }
       }
     } catch (error) {
       console.error("Error submitting feedback:", error);
@@ -86,6 +165,12 @@ export function Hero() {
         {submitStatus === "error" && (
           <p className="text-red-600 text-sm font-medium">Something went wrong. Please try again.</p>
         )}
+        {feedbackStatus === "success" && (
+          <p className="text-green-600 text-sm font-medium">Thank you for your feedback!</p>
+        )}
+        {feedbackStatus === "error" && (
+          <p className="text-red-600 text-sm font-medium">Failed to submit feedback. Please try again.</p>
+        )}
 
         <Pill className="px-4 sm:px-0">
           <PillAvatarGroup className="hidden sm:flex">
@@ -104,9 +189,12 @@ export function Hero() {
       
       <FeedbackModal
         isOpen={showFeedbackModal}
-        onClose={() => setShowFeedbackModal(false)}
+        onClose={() => {
+          setShowFeedbackModal(false);
+          setSubmittedEmail(""); // Reset the stored email
+        }}
         onSubmit={handleFeedbackSubmit}
-        email={email}
+        email={submittedEmail}
       />
     </div>
   );

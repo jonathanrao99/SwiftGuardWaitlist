@@ -113,6 +113,7 @@ export function Features() {
     : "Flexible, transparent, and built with guards in mind.";
 
   const handleViewChange = (view: "business" | "guard") => {
+    console.log("Switching to view:", view);
     setActiveView(view);
     setActiveTab(0); // Reset to first tab when switching views
   };
@@ -130,11 +131,15 @@ export function Features() {
       </p>
 
       {/* Toggle Buttons - Enhanced with sliding background animation */}
-      <div className="flex items-center gap-1 sm:gap-2 rounded-full bg-gray-100 dark:bg-gray-800 p-1 mb-[-10px] relative w-full max-w-xs sm:max-w-none">
+      <div 
+        role="tablist" 
+        aria-label="Feature view toggle"
+        className="flex items-center gap-1 sm:gap-2 rounded-full bg-gray-100 dark:bg-gray-800 p-1 mb-[-10px] relative w-full max-w-sm sm:max-w-md"
+      >
         {/* Sliding background indicator */}
         <div className={cn(
           "absolute top-1 bottom-1 rounded-full bg-white dark:bg-gray-700 shadow-sm transition-all duration-300 ease-in-out",
-          activeView === "business" ? "left-1 w-[calc(52%)]" : "left-[calc(56%)] w-[calc(43%)]"
+          activeView === "business" ? "left-1 w-[calc(50%-4px)]" : "left-[calc(50%+2px)] w-[calc(50%-4px)]"
         )} />
         
         {/* Buttons with transparent backgrounds */}
@@ -142,10 +147,11 @@ export function Features() {
           onClick={() => handleViewChange("business")}
           variant="ghost"
           size="sm"
+          aria-pressed={activeView === "business"}
           className={cn(
-            "relative z-10 rounded-full px-3 sm:px-6 py-2 transition-all duration-200 flex-shrink-0 min-w-0 transform active:scale-95 bg-transparent text-xs sm:text-sm",
+            "relative z-10 rounded-full px-3 sm:px-6 py-2 transition-all duration-200 flex-shrink-0 min-w-0 transform active:scale-95 bg-transparent text-xs sm:text-sm flex-1 hover:bg-gray-50 dark:hover:bg-gray-700",
             activeView === "business"
-              ? "text-gray-900 dark:text-white"
+              ? "text-gray-900 dark:text-white font-medium"
               : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
           )}
         >
@@ -156,10 +162,11 @@ export function Features() {
           onClick={() => handleViewChange("guard")}
           variant="ghost"
           size="sm"
+          aria-pressed={activeView === "guard"}
           className={cn(
-            "relative z-10 rounded-full px-3 sm:px-6 py-2 transition-all duration-200 flex-shrink-0 min-w-0 transform active:scale-95 bg-transparent text-xs sm:text-sm",
+            "relative z-10 rounded-full px-3 sm:px-6 py-2 transition-all duration-200 flex-shrink-0 min-w-0 transform active:scale-95 bg-transparent text-xs sm:text-sm flex-1 hover:bg-gray-50 dark:hover:bg-gray-700",
             activeView === "guard"
-              ? "text-gray-900 dark:text-white"
+              ? "text-gray-900 dark:text-white font-medium"
               : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
           )}
         >
