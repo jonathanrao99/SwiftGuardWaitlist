@@ -16,11 +16,7 @@ const links = [
         href: "/#features",
         title: "See our features",
       },
-      {
-        label: "Pricing",
-        href: "/pricing",
-        title: "View pricing",
-      },
+
     ],
   },
   {
@@ -97,19 +93,20 @@ const links = [
 
 export function Footer() {
   return (
-    <footer className="relative -mt-25 overflow-hidden py-12 pt-37 md:py-25 md:pt-37">
+    <footer className="relative -mt-25 overflow-hidden py-8 sm:py-12 pt-20 sm:pt-37 md:py-25 md:pt-37">
       <FooterBlur />
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-8 px-6 tracking-tight md:grid-cols-4">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 px-4 sm:px-6 tracking-tight md:grid-cols-4">
         {links.map((link) => (
-          <div key={link.title} className="mb-10 text-center">
-            <h3 className="text-muted-foreground mb-8">{link.title}</h3>
-            <ul className="flex flex-col items-center gap-8">
+          <div key={link.title} className="mb-6 sm:mb-10 text-center">
+            <h3 className="text-muted-foreground mb-4 sm:mb-8 text-sm sm:text-base">{link.title}</h3>
+            <ul className="flex flex-col items-center gap-4 sm:gap-8">
               {link.links.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.href}
                     title={link.title}
                     target={link.href.startsWith("https://") ? "_blank" : undefined}
+                    className="text-sm sm:text-base hover:text-foreground transition-colors"
                   >
                     {link.label}
                   </Link>

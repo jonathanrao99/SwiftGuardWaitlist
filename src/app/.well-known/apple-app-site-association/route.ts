@@ -8,10 +8,7 @@ export async function GET() {
       applinks: {
         apps: [],
         details: [
-          {
-            appID: appID,
-            paths: ["/checkout_redirect*"],
-          },
+
         ],
       },
       webcredentials: {

@@ -5,8 +5,6 @@ import { Features } from "@/components/features/features";
 import { Footer } from "@/components/footer/footer";
 import { Hero } from "@/components/hero/hero";
 import { Quote } from "@/components/quote/quote";
-import { Showcase } from "@/components/showcase/showcase";
-import { Testimonials } from "@/components/testimonials/testimonials";
 import { WhatIsSwiftGuard } from "@/components/what-is-swiftguard/what-is-swiftguard";
 import { useRedirectWarning } from "@/lib/redirect";
 

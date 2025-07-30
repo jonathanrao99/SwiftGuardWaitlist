@@ -118,19 +118,19 @@ export function Features() {
   };
 
   return (
-    <div id="features" className="flex w-full flex-col items-center gap-6 px-6 py-14 md:px-10 md:py-25">
+    <div id="features" className="flex w-full flex-col items-center gap-4 sm:gap-6 px-4 sm:px-6 py-10 sm:py-14 md:px-10 md:py-25">
       <Badge variant="secondary" className="uppercase">
         Features
       </Badge>
-      <h2 className="text-center text-3xl leading-[1.1] font-medium tracking-tight sm:text-5xl">
+      <h2 className="text-center text-2xl sm:text-3xl leading-[1.1] font-medium tracking-tight md:text-5xl">
         Discover our<div className="text-muted-foreground">Exceptional Features. Unmatched Control.</div>
       </h2>
-      <p className="mb-3 max-w-2xl text-center leading-6 tracking-tight sm:text-xl lg:mb-8">
+      <p className="mb-3 max-w-2xl text-center leading-6 tracking-tight text-base sm:text-lg md:text-xl lg:mb-8 px-4">
         We built SwiftGuard to make security staffing fast, efficient, and effortless — so you can focus on running safe, successful events.
       </p>
 
       {/* Toggle Buttons - Enhanced with sliding background animation */}
-      <div className="flex items-center gap-2 rounded-full bg-gray-100 dark:bg-gray-800 p-1 mb-[-10px] relative">
+      <div className="flex items-center gap-1 sm:gap-2 rounded-full bg-gray-100 dark:bg-gray-800 p-1 mb-[-10px] relative w-full max-w-xs sm:max-w-none">
         {/* Sliding background indicator */}
         <div className={cn(
           "absolute top-1 bottom-1 rounded-full bg-white dark:bg-gray-700 shadow-sm transition-all duration-300 ease-in-out",
@@ -143,13 +143,13 @@ export function Features() {
           variant="ghost"
           size="sm"
           className={cn(
-            "relative z-10 rounded-full px-6 py-2 transition-all duration-200 flex-shrink-0 min-w-0 transform active:scale-95 bg-transparent",
+            "relative z-10 rounded-full px-3 sm:px-6 py-2 transition-all duration-200 flex-shrink-0 min-w-0 transform active:scale-95 bg-transparent text-xs sm:text-sm",
             activeView === "business"
               ? "text-gray-900 dark:text-white"
               : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
           )}
         >
-          <Building2 size={16} className="mr-2 flex-shrink-0" />
+          <Building2 size={14} className="mr-1 sm:mr-2 flex-shrink-0" />
           <span className="truncate">For Businesses</span>
         </Button>
         <Button
@@ -157,19 +157,19 @@ export function Features() {
           variant="ghost"
           size="sm"
           className={cn(
-            "relative z-10 rounded-full px-6 py-2 transition-all duration-200 flex-shrink-0 min-w-0 transform active:scale-95 bg-transparent",
+            "relative z-10 rounded-full px-3 sm:px-6 py-2 transition-all duration-200 flex-shrink-0 min-w-0 transform active:scale-95 bg-transparent text-xs sm:text-sm",
             activeView === "guard"
               ? "text-gray-900 dark:text-white"
               : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
           )}
         >
-          <Shield size={16} className="mr-2 flex-shrink-0" />
+          <Shield size={14} className="mr-1 sm:mr-2 flex-shrink-0" />
           <span className="truncate">For Guards</span>
         </Button>
       </div>
 
       {/* Tagline */}
-      <p className="text-center text-lg text-muted-foreground mb-12 max-w-2xl">
+      <p className="text-center text-base sm:text-lg text-muted-foreground mb-8 sm:mb-12 max-w-2xl px-4">
         {tagline}
       </p>
 
@@ -184,7 +184,7 @@ export function Features() {
             transition={{ duration: 0.3 }}
           >
             {/* Feature Tabs */}
-            <div className="grid h-auto w-full grid-cols-5 gap-6 mb-8">
+            <div className="grid h-auto w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-6 mb-8 px-4 sm:px-0">
               {features.map((feature, index) => (
                 <motion.button
                   key={feature.title}
@@ -196,10 +196,10 @@ export function Features() {
                     ease: "easeOut"
                   }}
                   onClick={() => setActiveTab(index)}
-                  className="group relative flex cursor-pointer flex-col items-center justify-start gap-5 px-2 py-6 rounded-lg border border-transparent hover:border-gray-200 dark:hover:border-gray-700 transition-all duration-200"
+                  className="group relative flex cursor-pointer flex-col items-center justify-start gap-3 sm:gap-5 px-2 py-4 sm:py-6 rounded-lg border border-transparent hover:border-gray-200 dark:hover:border-gray-700 transition-all duration-200"
                 >
                   {/* Tab Line Indicator */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-0.5 bg-gray-300 dark:bg-gray-600 transition-all duration-200">
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-8 sm:w-12 h-0.5 bg-gray-300 dark:bg-gray-600 transition-all duration-200">
                     <motion.div
                       className="h-full bg-black dark:bg-white"
                       initial={{ scaleX: 0 }}
@@ -215,19 +215,19 @@ export function Features() {
                       transition: { duration: 0.2 }
                     }}
                     className={cn(
-                      "bg-secondary text-foreground w-fit rounded-sm p-3 transition-colors",
+                      "bg-secondary text-foreground w-fit rounded-sm p-2 sm:p-3 transition-colors",
                       activeTab === index && "bg-foreground text-background"
                     )}
                   >
                     {feature.icon}
                   </motion.div>
                   <div className="text-center">
-                    <p className="mb-2 text-base font-medium">{feature.title}</p>
+                    <p className="mb-1 sm:mb-2 text-xs sm:text-base font-medium">{feature.title}</p>
                     <div className="flex items-center justify-center gap-1">
-                      <p className="text-muted-foreground text-sm text-wrap">{feature.description}</p>
+                      <p className="text-muted-foreground text-xs sm:text-sm text-wrap">{feature.description}</p>
                       {feature.tooltip && (
                         <div className="relative group/tooltip">
-                          <Info size={14} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 cursor-help transition-colors" />
+                          <Info size={12} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 cursor-help transition-colors" />
                           <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white dark:bg-gray-800 text-xs text-gray-700 dark:text-gray-300 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 group-hover/tooltip:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
                             {feature.tooltip}
                             <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white dark:border-t-gray-800"></div>
@@ -248,13 +248,14 @@ export function Features() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
-                className="bg-card flex w-full justify-center rounded-lg border p-8 pb-0"
+                className="bg-card flex w-full justify-center rounded-lg border p-4 sm:p-8 pb-0"
               >
                 <Image 
                   src={features[activeTab].image} 
                   alt="App Image" 
                   width={304} 
                   height={445} 
+                  className="w-48 sm:w-auto"
                 />
               </motion.div>
             </AnimatePresence>

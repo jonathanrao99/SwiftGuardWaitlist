@@ -1,8 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -19,13 +17,12 @@ export function DesktopNav({ items, className }: Props) {
 
   return (
     <nav className={cn("mx-auto flex w-full max-w-7xl items-center justify-between gap-4", className)}>
-      <Link href="/">
-        <Image src="/logo.png" alt="logo" width={50} height={50} />
-      </Link>
+      <div className="flex items-center">
+        <span className="text-xl font-bold text-black">SwiftGuard</span>
+      </div>
       <div className="flex items-center gap-8">
         {items.map((item) => {
           const isActive = pathname === item.href || 
-            (item.href === "/pricing" && pathname === "/pricing") ||
             (item.href === "/terms-and-conditions" && (pathname === "/privacy-policy" || pathname === "/terms-and-conditions" || pathname === "/refund-policy"));
           
           return (
@@ -33,8 +30,8 @@ export function DesktopNav({ items, className }: Props) {
               key={item.href}
               href={item.href}
               className={cn(
-                "group relative text-sm font-medium transition-colors hover:text-foreground",
-                isActive ? "text-foreground" : "text-muted-foreground"
+                "group relative text-sm font-medium transition-colors hover:text-black text-black",
+                isActive ? "text-black" : "text-black"
               )}
             >
               {item.label}
@@ -48,9 +45,6 @@ export function DesktopNav({ items, className }: Props) {
           );
         })}
       </div>
-      <Button asChild>
-        <Link href="/pricing">Join Waitlist</Link>
-      </Button>
     </nav>
   );
 }

@@ -43,14 +43,14 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-6 px-6 py-14 md:py-25">
+    <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-4 sm:gap-6 px-4 sm:px-6 py-10 sm:py-14 md:py-25">
       <Badge variant="secondary" className="mb-2 uppercase">
         Testimonial
       </Badge>
-      <h2 className="text-center text-3xl leading-[1.1] font-medium tracking-tight sm:text-5xl">
+      <h2 className="text-center text-2xl sm:text-3xl leading-[1.1] font-medium tracking-tight md:text-5xl">
         Don&apos;t Take<div className="text-muted-foreground">Our Word for It</div>
       </h2>
-      <p className="mb-3 max-w-lg text-center leading-6 tracking-tight sm:text-xl lg:mb-8">
+      <p className="mb-3 max-w-lg text-center leading-6 tracking-tight text-base sm:text-lg md:text-xl lg:mb-8 px-4">
         We&apos;ve built the ultimate white-label app platform so you can focus on growing your brand—not building tech
       </p>
       <div className="relative w-[calc(100%+3rem)] overflow-x-hidden py-4 lg:w-full">
