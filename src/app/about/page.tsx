@@ -6,7 +6,6 @@ import { Nav } from "@/components/hero/nav";
 import { Footer } from "@/components/footer/footer";
 import { BackgroundBlur } from "@/components/ui/background-blur";
 import { Shield, Users, Zap, Heart, Target, Globe } from "lucide-react";
-import Image from "next/image";
 import { useEffect } from "react";
 
 export default function AboutUs() {
