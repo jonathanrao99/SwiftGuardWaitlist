@@ -103,7 +103,7 @@ export function FeedbackModal({ isOpen, onClose, onSubmit, email }: FeedbackModa
             </h2>
               {step === "role" && (
                 <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-snug">
-                  We're building SwiftGuard with real feedback from people like you. Let us know who you are so we can tailor your experience.
+                  We&apos;re building SwiftGuard with real feedback from people like you. Let us know who you are so we can tailor your experience.
                 </p>
               )}
             </div>
@@ -132,7 +132,7 @@ export function FeedbackModal({ isOpen, onClose, onSubmit, email }: FeedbackModa
                   >
                     <Building2 size={20} />
                   </motion.div>
-                  <span className="font-semibold text-gray-900 dark:text-zinc-100">I'm a Business</span>
+                  <span className="font-semibold text-gray-900 dark:text-zinc-100">I&apos;m a Business</span>
                 </div>
                 <p className="text-xs text-muted-foreground leading-relaxed">Need trained guards for an event or venue.</p>
               </motion.button>
@@ -150,7 +150,7 @@ export function FeedbackModal({ isOpen, onClose, onSubmit, email }: FeedbackModa
                   >
                     <Shield size={20} />
                   </motion.div>
-                  <span className="font-semibold text-gray-900 dark:text-zinc-100">I'm a Guard</span>
+                  <span className="font-semibold text-gray-900 dark:text-zinc-100">I&apos;m a Guard</span>
                 </div>
                 <p className="text-xs text-muted-foreground leading-relaxed">Looking for flexible, secure work shifts.</p>
               </motion.button>
@@ -162,7 +162,7 @@ export function FeedbackModal({ isOpen, onClose, onSubmit, email }: FeedbackModa
           <div className="space-y-8">
             <div>
               <label className="block text-sm font-semibold text-gray-800 dark:text-zinc-100 mb-3">
-                What's the one thing you struggle with most when it comes to hiring security guards?
+                What&apos;s the one thing you struggle with most when it comes to hiring security guards?
               </label>
               <div className="relative">
                 <select
@@ -239,7 +239,7 @@ export function FeedbackModal({ isOpen, onClose, onSubmit, email }: FeedbackModa
           <div className="space-y-8">
             <div>
               <label className="block text-sm font-semibold text-gray-800 dark:text-zinc-100 mb-3">
-                What's the biggest challenge you've faced while working security jobs?
+                What&apos;s the biggest challenge you&apos;ve faced while working security jobs?
               </label>
               <div className="relative">
                 <select

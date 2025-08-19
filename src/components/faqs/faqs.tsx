@@ -73,9 +73,6 @@ export function FAQs() {
   const [activeView, setActiveView] = useState<"guard" | "business">("business");
 
   const faqs = activeView === "guard" ? guardFAQs : businessFAQs;
-  const tagline = activeView === "guard" 
-    ? "Everything you need to know about working with SwiftGuard."
-    : "Everything you need to know about hiring with SwiftGuard.";
 
   // Set default expanded question
   const [defaultValue, setDefaultValue] = useState("item-0");
@@ -97,7 +94,7 @@ export function FAQs() {
           Asked <span className="text-muted-foreground">Questions</span>
         </h2>
         <p className="max-w-lg text-xs leading-6 tracking-tight sm:text-base">
-          Got questions? We've got answers. Everything you need to know about SwiftGuard.
+          Got questions? We&apos;ve got answers. Everything you need to know about SwiftGuard.
         </p>
 
         {/* Toggle Buttons - Enhanced with sliding background animation */}

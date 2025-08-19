@@ -113,7 +113,6 @@ export function Features() {
     : "Flexible, transparent, and built with guards in mind.";
 
   const handleViewChange = (view: "business" | "guard") => {
-    console.log("Switching to view:", view);
     setActiveView(view);
     setActiveTab(0); // Reset to first tab when switching views
   };

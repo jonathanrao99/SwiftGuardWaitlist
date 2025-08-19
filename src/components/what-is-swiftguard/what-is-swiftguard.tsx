@@ -1,21 +1,12 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { 
   Shield, 
   Building2, 
-  Users, 
-  Zap, 
-  CheckCircle, 
-  Bell, 
-  Clock, 
-  Star, 
-  DollarSign,
-  MapPin,
-  ArrowRight,
-  Sparkles
+  CheckCircle
 } from "lucide-react";
 
 const step1Business = [

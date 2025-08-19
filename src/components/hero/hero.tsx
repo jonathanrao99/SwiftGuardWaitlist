@@ -133,16 +133,16 @@ export function Hero() {
     <div className="z-1 grid w-full place-items-center p-4 sm:p-8">
       <BackgroundBlur className="-top-40 md:-top-0" />
       <Nav />
-      <div className="mt-8 sm:mt-16 flex flex-col items-center gap-4 sm:gap-6 mt-20 sm:mt-30">
+      <div id="hero" className="mt-8 sm:mt-16 flex flex-col items-center gap-4 sm:gap-6 mt-20 sm:mt-30">
         <h1 className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-7xl leading-[1.1] font-medium tracking-tight">
           SwiftGuard<span className="text-muted-foreground block text-2xl sm:text-4xl md:text-5xl lg:text-6xl">On-Demand Security Staffing. Simplified.</span>
         </h1>
         <p className="max-w-3xl text-center leading-6 tracking-tight text-base sm:text-lg md:text-xl px-4">
-        Whether you're organizing events or looking for work, SwiftGuard connects guards and businesses with real-time staffing—no agencies, no delays.
+        Whether you&apos;re organizing events or looking for work, SwiftGuard connects guards and businesses with real-time staffing—no agencies, no delays.
         </p>
         
         <p className="max-w-2xl text-center text-sm text-muted-foreground mt-40">
-        SwiftGuard is still in early development. We’re building this with your feedback. Join the waitlist and help us shape the future of security staffing.
+        🚀 <strong>Launching Soon!</strong> SwiftGuard is in early development. Join our waitlist to be the first to experience the future of security staffing and help us build exactly what you need.
         </p>
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 w-full max-w-md px-4">
           <input
@@ -155,7 +155,7 @@ export function Hero() {
             disabled={isSubmitting}
           />
           <Button type="submit" className="w-full sm:w-auto h-12 sm:h-10 rounded-full" size="lg" disabled={isSubmitting}>
-            {isSubmitting ? "Joining..." : "Join Waitlist"}
+{isSubmitting ? "Securing your spot..." : "Join Waitlist"}
           </Button>
         </form>
         
@@ -180,7 +180,7 @@ export function Hero() {
             <PillAvatar src="/avatars/4.jpg" />
           </PillAvatarGroup>
           <p className="text-muted-foreground px-2 text-xs font-medium sm:border-l-1 sm:text-sm text-center">
-            Join <span className="text-foreground">3 Million</span> other users already on board
+            Join <span className="text-foreground">500+</span> security professionals already on the waitlist
           </p>
         </Pill>
         
