@@ -15,7 +15,9 @@ export function MobileNav({ items, className }: Props) {
   return (
     <nav className={cn("flex w-full max-w-7xl items-center justify-between gap-4", className)}>
       <div className="flex items-center">
-        <span className="text-xl font-bold text-black">SwiftGuard</span>
+        <Link href="/" className="text-xl font-bold text-black hover:text-gray-700 transition-colors">
+          SwiftGuard
+        </Link>
       </div>
       <Drawer direction="top">
         <DrawerTrigger className="relative -m-2 cursor-pointer p-3 rounded-lg hover:bg-gray-100 transition-colors">

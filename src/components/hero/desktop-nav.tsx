@@ -18,7 +18,9 @@ export function DesktopNav({ items, className }: Props) {
   return (
     <nav className={cn("mx-auto flex w-full max-w-7xl items-center justify-between gap-4", className)}>
       <div className="flex items-center">
-        <span className="text-xl font-bold text-black">SwiftGuard</span>
+        <Link href="/" className="text-xl font-bold text-black hover:text-gray-700 transition-colors">
+          SwiftGuard
+        </Link>
       </div>
       <div className="flex items-center gap-8">
         {items.map((item) => {
